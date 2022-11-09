@@ -61,6 +61,22 @@ namespace SliderWithTickLabels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the positions of the tick labels to display for a <see cref="SliderWithTickLabels"/>
+		/// </summary>
+		/// <remarks>
+		/// <para>
+		/// The default is <c>null</c>.
+		/// </para>
+		/// <para>
+		/// When this property is <c>null</c> or empty, the displayed labels are calculed as follows:
+		/// <list type="bullet">
+		///		<item>From <see cref="TickLabelFrequency">TickLabelFrequency</see> if it is valid, otherwise</item>
+		///		<item>Same as <see cref="Slider.Ticks">Ticks</see> if it is not <c>null</c> or empty, otherwise</item>
+		///		<item>From <see cref="Slider.TickFrequency">TickFrequency</see></item>
+		/// </list>
+		/// </para>
+		/// </remarks>
 		[Bindable(true)]
 		[Category("Appearance")]
 		public DoubleCollection TickLabels
@@ -88,6 +104,12 @@ namespace SliderWithTickLabels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the interval between tick labels.
+		/// </summary>
+		/// <remarks>
+		/// The default is invalid (<see cref="double.NaN">NaN</see>).
+		/// </remarks>
 		[Bindable(true)]
 		[Category("Appearance")]
 		public double TickLabelFrequency
@@ -102,6 +124,13 @@ namespace SliderWithTickLabels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the thumb width.
+		/// </summary>
+		/// <remarks>
+		/// When <see cref="Slider.Orientation">Orientation</see> is <see cref="Orientation.Vertical">Vertical</see>, thumb width applies to the vertical axis
+		/// (i.e., thumb width and height are swapped).
+		/// </remarks>
 		[Bindable(true)]
 		[Category("Appearance")]
 		public double ThumbWidth
@@ -116,6 +145,13 @@ namespace SliderWithTickLabels
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the thumb height.
+		/// </summary>
+		/// <remarks>
+		/// When <see cref="Slider.Orientation">Orientation</see> is <see cref="Orientation.Vertical">Vertical</see>, thumb heught applies to the horizontal axis.
+		/// (i.e., thumb width and height are swapped).
+		/// </remarks>
 		[Bindable(true)]
 		[Category("Appearance")]
 		public double ThumbHeight
