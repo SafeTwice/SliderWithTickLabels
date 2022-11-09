@@ -18,30 +18,7 @@
 	<SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FFD6D6D6"/>
 	<SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FFE7EAEA"/>
 	<DataTemplate x:Key="TickLabelTemplate">
-		<Label x:Name="TickLabel" Foreground="{StaticResource TickLabel.Foreground}" Content="{Binding}">
-			<Label.Style>
-				<Style TargetType="Label">
-					<Setter Property="HorizontalAlignment" Value="Left"/>
-					<Setter Property="VerticalAlignment" Value="Top"/>
-					<Style.Triggers>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Vertical"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="TopTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="HorizontalAlignment" Value="Right"/>
-						</MultiDataTrigger>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Vertical"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="BottomTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="HorizontalAlignment" Value="Left"/>
-						</MultiDataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Label.Style>
-		</Label>
+		<Label x:Name="TickLabel" Foreground="{StaticResource TickLabel.Foreground}" Content="{Binding}"/>
 	</DataTemplate>
 	<DataTemplate x:Key="TickLabelContainer">
 		<ItemsControl>
