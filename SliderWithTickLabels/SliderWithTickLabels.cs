@@ -44,6 +44,9 @@ namespace SliderWithTickLabels
 		public static readonly DependencyProperty TickLabelTemplateProperty;
 		public static readonly DependencyProperty TickLabelFrequencyProperty;
 
+		public static readonly DependencyProperty ThumbWidthProperty;
+		public static readonly DependencyProperty ThumbHeightProperty;
+
 		[Bindable(false)]
 		[Browsable(false)]
 		public DoubleCollection InternalTickLabels
@@ -99,6 +102,34 @@ namespace SliderWithTickLabels
 			}
 		}
 
+		[Bindable(true)]
+		[Category("Appearance")]
+		public double ThumbWidth
+		{
+			get
+			{
+				return (double) base.GetValue(SliderWithTickLabels.ThumbWidthProperty);
+			}
+			set
+			{
+				base.SetValue(SliderWithTickLabels.ThumbWidthProperty, value);
+			}
+		}
+
+		[Bindable(true)]
+		[Category("Appearance")]
+		public double ThumbHeight
+		{
+			get
+			{
+				return (double) base.GetValue(SliderWithTickLabels.ThumbHeightProperty);
+			}
+			set
+			{
+				base.SetValue(SliderWithTickLabels.ThumbHeightProperty, value);
+			}
+		}
+
 		static SliderWithTickLabels()
 		{
 			SliderWithTickLabels.InternalTickLabelsPropertyKey = DependencyProperty.RegisterReadOnly("InternalTickLabels", typeof(DoubleCollection), typeof(SliderWithTickLabels),
@@ -109,6 +140,11 @@ namespace SliderWithTickLabels
 				new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure));
 			SliderWithTickLabels.TickLabelFrequencyProperty = DependencyProperty.Register("TickLabelFrequency", typeof(double), typeof(SliderWithTickLabels),
 				new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsRender ));
+
+			SliderWithTickLabels.ThumbWidthProperty = DependencyProperty.Register( "ThumbWidth", typeof(double), typeof(SliderWithTickLabels),
+				new FrameworkPropertyMetadata(11.0, FrameworkPropertyMetadataOptions.AffectsRender));
+			SliderWithTickLabels.ThumbHeightProperty = DependencyProperty.Register( "ThumbHeight", typeof(double), typeof(SliderWithTickLabels),
+				new FrameworkPropertyMetadata(18.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(SliderWithTickLabels), new FrameworkPropertyMetadata(typeof(SliderWithTickLabels)));
 		}

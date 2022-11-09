@@ -209,7 +209,7 @@
 						<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
 					</Track.IncreaseRepeatButton>
 					<Track.Thumb>
-						<Thumb x:Name="Thumb" Focusable="False" Height="18" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbHorizontalDefault}" VerticalAlignment="Center" Width="11"/>
+						<Thumb x:Name="Thumb" Focusable="False" Height="{TemplateBinding ThumbHeight}" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbHorizontalDefault}" VerticalAlignment="Center" Width="{TemplateBinding ThumbWidth}"/>
 					</Track.Thumb>
 				</Track>
 			</Grid>
@@ -325,7 +325,7 @@
 						<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
 					</Track.IncreaseRepeatButton>
 					<Track.Thumb>
-						<Thumb x:Name="Thumb" Focusable="False" Height="11" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="18"/>
+						<Thumb x:Name="Thumb" Focusable="False" Height="{TemplateBinding ThumbWidth}" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="{TemplateBinding ThumbHeight}"/>
 					</Track.Thumb>
 				</Track>
 			</Grid>
