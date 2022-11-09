@@ -191,12 +191,16 @@ namespace SliderWithTickLabels
 
 			var propertyNames = new string[]
 			{
+				nameof(ActualWidth),
+				nameof(ActualHeight),
 				nameof(Minimum),
 				nameof(Maximum),
 				nameof(TickFrequency),
 				nameof(TickLabelFrequency),
 				nameof(Ticks),
-				nameof(IsDirectionReversed)
+				nameof(TickLabels),
+				nameof(IsDirectionReversed),
+				nameof(ThumbWidth)
 			};
 
 			if (IsInitialized && propertyNames.Contains(e.Property.Name))
