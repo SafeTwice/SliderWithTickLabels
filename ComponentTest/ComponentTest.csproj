@@ -7,16 +7,7 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="bin\Debug\ComponentTest.exe.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SliderWithTickLabels\SliderWithTickLabels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\ComponentTest.exe" />
-    <Content Include="bin\Debug\ComponentTest.pdb" />
-    <Content Include="bin\Debug\SliderWithTickLabels.dll" />
-    <Content Include="bin\Debug\SliderWithTickLabels.pdb" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
