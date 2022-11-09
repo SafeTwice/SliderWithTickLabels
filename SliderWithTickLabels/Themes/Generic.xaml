@@ -106,7 +106,7 @@
 			</ItemsControl.ItemContainerStyle>
 			<ItemsControl.Style>
 				<Style TargetType="ItemsControl">
-					<Setter Property="ItemsSource" Value="{Binding Path=GeneratedTicks, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+					<Setter Property="ItemsSource" Value="{Binding Path=InternalTickLabels, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
 					<Setter Property="ItemTemplate" Value="{Binding Path=TickLabelTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
 				</Style>
 			</ItemsControl.Style>
