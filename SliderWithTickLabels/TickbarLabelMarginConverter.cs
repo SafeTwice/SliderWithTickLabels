@@ -17,10 +17,14 @@ namespace SliderWithTickLabels
 		{
 			try
 			{
-				var slider = values[0] as SliderWithTickLabels;
-				var tickBar = slider.Template.FindName("TopTick", slider) as TickBar;
+                var value = System.Convert.ToDouble(values[0]);
+                
+				var slider = values[1] as SliderWithTickLabels;
 
-				var positionMinimum = tickBar.ReservedSpace / 2;
+                var isTop = System.Convert.ToBoolean(values[2]);
+                var tickBar = slider.Template.FindName(isTop ? "TopTick" : "BottomTick", slider) as TickBar;
+
+                var positionMinimum = tickBar.ReservedSpace / 2;
 
 				double scalingValue = 0.0;
 				double left = 0.0;
@@ -30,13 +34,13 @@ namespace SliderWithTickLabels
 				{
 					case Orientation.Horizontal:
 						scalingValue = (tickBar.ActualWidth - tickBar.ReservedSpace) / (tickBar.Maximum - tickBar.Minimum);
-						left = - (tickBar.ActualWidth / 2 - positionMinimum - scalingValue * (System.Convert.ToDouble(values[1]) - tickBar.Minimum)) * 2;
-						top = System.Convert.ToDouble(values[2]);
+						left = - (tickBar.ActualWidth / 2 - positionMinimum - scalingValue * (value - tickBar.Minimum)) * 2;
+						top = 0;
 						break;
 					case Orientation.Vertical:
 						scalingValue = (tickBar.ActualHeight - tickBar.ReservedSpace) / (tickBar.Maximum - tickBar.Minimum);
-						left = System.Convert.ToDouble(values[1]);
-						top = (tickBar.ActualHeight / 2 - positionMinimum - scalingValue * (System.Convert.ToDouble(values[2]) - tickBar.Minimum)) * 2;
+						left = 0;
+						top = (tickBar.ActualHeight / 2 - positionMinimum - scalingValue * (value - tickBar.Minimum)) * 2;
 						break;
 					default:
 						break;
@@ -52,8 +56,8 @@ namespace SliderWithTickLabels
 				{
 					Left = (left <= 0.0) ? left : 0,
 					Top = (top <= 0.0) ? top : 0,
-					Right = (left > 0.0) ? -left : System.Convert.ToDouble(values[3]),
-					Bottom = (top > 0.0) ? -top : System.Convert.ToDouble(values[4])
+					Right = (left > 0.0) ? -left : 0,
+					Bottom = (top > 0.0) ? -top : 0
 				};
 
 				return thickness;
@@ -66,14 +70,7 @@ namespace SliderWithTickLabels
 
 		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
-			return new object[]
-			{
-				null,
-				((Thickness)value).Left,
-				((Thickness)value).Top,
-				((Thickness)value).Right,
-				((Thickness)value).Bottom
-			};
+			return null;
 		}
 	}
 }
