@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace SliderWithTickLabels
 {
@@ -17,14 +14,19 @@ namespace SliderWithTickLabels
 		{
 			try
 			{
-                var value = System.Convert.ToDouble(values[0]);
-                
-				var slider = values[1] as SliderWithTickLabels;
+				var value = System.Convert.ToDouble(values[0]);
+				
+				var slider = FindAncestor<SliderWithTickLabels>(values[1] as DependencyObject);
 
-                var isTop = System.Convert.ToBoolean(values[2]);
-                var tickBar = slider.Template.FindName(isTop ? "TopTick" : "BottomTick", slider) as TickBar;
+				var isTop = System.Convert.ToBoolean(values[2]);
+				var tickBar = slider?.Template.FindName(isTop ? "TopTick" : "BottomTick", slider) as TickBar;
 
-                var positionMinimum = tickBar.ReservedSpace / 2;
+				if (tickBar == null)
+				{
+					return new Thickness();
+				}
+
+				var positionMinimum = tickBar.ReservedSpace / 2;
 
 				double scalingValue = 0.0;
 				double left = 0.0;
@@ -71,6 +73,24 @@ namespace SliderWithTickLabels
 		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
 			return null;
+		}
+
+		private T FindAncestor<T>(DependencyObject child) where T : DependencyObject
+		{
+			var parent = VisualTreeHelper.GetParent(child);
+
+			if (parent == null)
+			{
+				return null;
+			}
+			else if (parent is T foundParent)
+			{
+				return foundParent;
+			}
+			else
+			{
+				return FindAncestor<T>(parent);
+			}
 		}
 	}
 }

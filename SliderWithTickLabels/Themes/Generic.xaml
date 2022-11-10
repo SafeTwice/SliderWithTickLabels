@@ -20,7 +20,7 @@
 	<DataTemplate x:Key="TickLabelTemplate">
 		<Label x:Name="TickLabel" Foreground="{StaticResource TickLabel.Foreground}" Content="{Binding}"/>
 	</DataTemplate>
-	<DataTemplate x:Key="TickLabelContainer">
+	<DataTemplate x:Key="TickLabelContainerTop">
 		<ItemsControl>
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
@@ -29,88 +29,119 @@
 			</ItemsControl.ItemsPanel>
 			<ItemsControl.ItemContainerStyle>
 				<Style>
-					<Style.Triggers>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Horizontal"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="TopTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-							<Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
-							<Setter Property="FrameworkElement.Margin">
-								<Setter.Value>
-									<MultiBinding>
-										<MultiBinding.Converter>
-											<local:TickBarLabelMarginConverter/>
-										</MultiBinding.Converter>
-										<Binding/> <!-- tick label value -->
-										<Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}"/>
-										<Binding Source="{StaticResource True}"/> <!-- top -->
-									</MultiBinding>
-								</Setter.Value>
-							</Setter>
-						</MultiDataTrigger>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Horizontal"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="BottomTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-							<Setter Property="FrameworkElement.VerticalAlignment" Value="Top"/>
-							<Setter Property="FrameworkElement.Margin">
-								<Setter.Value>
-									<MultiBinding>
-										<MultiBinding.Converter>
-											<local:TickBarLabelMarginConverter/>
-										</MultiBinding.Converter>
-										<Binding/> <!-- tick label value -->
-										<Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}"/>
-										<Binding Source="{StaticResource False}"/> <!-- bottom -->
-									</MultiBinding>
-								</Setter.Value>
-							</Setter>
-						</MultiDataTrigger>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Vertical"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="TopTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-							<Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
-							<Setter Property="FrameworkElement.Margin">
-								<Setter.Value>
-									<MultiBinding>
-										<MultiBinding.Converter>
-											<local:TickBarLabelMarginConverter/>
-										</MultiBinding.Converter>
-										<Binding/> <!-- tick label value -->
-										<Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}"/>
-										<Binding Source="{StaticResource True}"/> <!-- top (left) -->
-									</MultiBinding>
-								</Setter.Value>
-							</Setter>
-						</MultiDataTrigger>
-						<MultiDataTrigger>
-							<MultiDataTrigger.Conditions>
-								<Condition Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}" Value="Vertical"/>
-								<Condition Binding="{Binding Path=Name, RelativeSource={RelativeSource FindAncestor, AncestorType=ContentPresenter}}" Value="BottomTickLabel"/>
-							</MultiDataTrigger.Conditions>
-							<Setter Property="FrameworkElement.HorizontalAlignment" Value="Left"/>
-							<Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
-							<Setter Property="FrameworkElement.Margin">
-								<Setter.Value>
-									<MultiBinding>
-										<MultiBinding.Converter>
-											<local:TickBarLabelMarginConverter/>
-										</MultiBinding.Converter>
-										<Binding/> <!-- tick label value -->
-										<Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}"/>
-										<Binding Source="{StaticResource False}"/> <!-- bottom (right) -->
-									</MultiBinding>
-								</Setter.Value>
-							</Setter>
-						</MultiDataTrigger>
-					</Style.Triggers>
+					<Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+					<Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+					<Setter Property="FrameworkElement.Margin">
+						<Setter.Value>
+							<MultiBinding>
+								<MultiBinding.Converter>
+									<local:TickBarLabelMarginConverter/>
+								</MultiBinding.Converter>
+								<Binding/> <!-- tick label value -->
+								<Binding RelativeSource="{RelativeSource Self}"/> <!-- this control -->
+								<Binding Source="{StaticResource True}"/> <!-- top -->
+							</MultiBinding>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+			<ItemsControl.Style>
+				<Style TargetType="ItemsControl">
+					<Setter Property="ItemsSource" Value="{Binding Path=InternalTickLabels, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+					<Setter Property="ItemTemplate" Value="{Binding Path=TickLabelTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+				</Style>
+			</ItemsControl.Style>
+		</ItemsControl>
+	</DataTemplate>
+	<DataTemplate x:Key="TickLabelContainerBottom">
+		<ItemsControl>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid x:Name="TickLabelContainer"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemContainerStyle>
+				<Style>
+					<Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+					<Setter Property="FrameworkElement.VerticalAlignment" Value="Top"/>
+					<Setter Property="FrameworkElement.Margin">
+						<Setter.Value>
+							<MultiBinding>
+								<MultiBinding.Converter>
+									<local:TickBarLabelMarginConverter/>
+								</MultiBinding.Converter>
+								<Binding/> <!-- tick label value -->
+								<Binding RelativeSource="{RelativeSource Self}"/> <!-- this control -->
+								<Binding Source="{StaticResource False}"/> <!-- bottom -->
+							</MultiBinding>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+			<ItemsControl.Style>
+				<Style TargetType="ItemsControl">
+					<Setter Property="ItemsSource" Value="{Binding Path=InternalTickLabels, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+					<Setter Property="ItemTemplate" Value="{Binding Path=TickLabelTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+				</Style>
+			</ItemsControl.Style>
+		</ItemsControl>
+	</DataTemplate>
+	<DataTemplate x:Key="TickLabelContainerLeft">
+		<ItemsControl>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid x:Name="TickLabelContainer"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemContainerStyle>
+				<Style>
+					<Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+					<Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+					<Setter Property="FrameworkElement.Margin">
+						<Setter.Value>
+							<MultiBinding>
+								<MultiBinding.Converter>
+									<local:TickBarLabelMarginConverter/>
+								</MultiBinding.Converter>
+								<Binding/> <!-- tick label value -->
+								<Binding RelativeSource="{RelativeSource Self}"/> <!-- this control -->
+								<Binding Source="{StaticResource True}"/> <!-- top (left) -->
+							</MultiBinding>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+			<ItemsControl.Style>
+				<Style TargetType="ItemsControl">
+					<Setter Property="ItemsSource" Value="{Binding Path=InternalTickLabels, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+					<Setter Property="ItemTemplate" Value="{Binding Path=TickLabelTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=local:SliderWithTickLabels}}"/>
+				</Style>
+			</ItemsControl.Style>
+		</ItemsControl>
+	</DataTemplate>
+	<DataTemplate x:Key="TickLabelContainerRight">
+		<ItemsControl>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid x:Name="TickLabelContainer"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemContainerStyle>
+				<Style>
+					<Setter Property="FrameworkElement.HorizontalAlignment" Value="Left"/>
+					<Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+					<Setter Property="FrameworkElement.Margin">
+						<Setter.Value>
+							<MultiBinding>
+								<MultiBinding.Converter>
+									<local:TickBarLabelMarginConverter/>
+								</MultiBinding.Converter>
+								<Binding/> <!-- tick label value -->
+								<Binding RelativeSource="{RelativeSource Self}"/> <!-- this control -->
+								<Binding Source="{StaticResource False}"/> <!-- bottom (right) -->
+							</MultiBinding>
+						</Setter.Value>
+					</Setter>
 				</Style>
 			</ItemsControl.ItemContainerStyle>
 			<ItemsControl.Style>
@@ -203,8 +234,8 @@
 				</Grid.RowDefinitions>
 				<TickBar x:Name="TopTick" Fill="{TemplateBinding Foreground}" Height="4" Margin="0,0,0,2" Placement="Top" Grid.Row="1" Visibility="Collapsed"/>
 				<TickBar x:Name="BottomTick" Fill="{TemplateBinding Foreground}" Height="4" Margin="0,2,0,0" Placement="Bottom" Grid.Row="3" Visibility="Collapsed"/>
-				<ContentPresenter x:Name="TopTickLabel" Grid.Row="0" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainer}"/>
-				<ContentPresenter x:Name="BottomTickLabel" Grid.Row="4" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainer}"/>
+				<ContentPresenter x:Name="TopTickLabel" Grid.Row="0" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainerTop}"/>
+				<ContentPresenter x:Name="BottomTickLabel" Grid.Row="4" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainerBottom}"/>
 				<Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderThumb.Track.Border}" BorderThickness="1" Background="{StaticResource SliderThumb.Track.Background}" Height="4.0" Margin="5,0" Grid.Row="2" VerticalAlignment="center">
 					<Canvas Margin="-6,-1">
 						<Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Height="4.0" Visibility="Hidden"/>
@@ -319,8 +350,8 @@
 				</Grid.ColumnDefinitions>
 				<TickBar x:Name="TopTick" Grid.Column="1" Fill="{TemplateBinding Foreground}" Margin="0,0,2,0" Placement="Left" Visibility="Collapsed" Width="4"/>
 				<TickBar x:Name="BottomTick" Grid.Column="3" Fill="{TemplateBinding Foreground}" Margin="2,0,0,0" Placement="Right" Visibility="Collapsed" Width="4"/>
-				<ContentPresenter x:Name="TopTickLabel" Grid.Column="0" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainer}"/>
-				<ContentPresenter x:Name="BottomTickLabel" Grid.Column="4" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainer}"/>
+				<ContentPresenter x:Name="TopTickLabel" Grid.Column="0" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainerLeft}"/>
+				<ContentPresenter x:Name="BottomTickLabel" Grid.Column="4" Visibility="Collapsed" ContentTemplate="{StaticResource TickLabelContainerRight}"/>
 				<Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderThumb.Track.Border}" BorderThickness="1" Background="{StaticResource SliderThumb.Track.Background}" Grid.Column="2" HorizontalAlignment="center" Margin="0,5" Width="4.0">
 					<Canvas Margin="-1,-6">
 						<Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Visibility="Hidden" Width="4.0"/>
